@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos principais
     const envelope = document.getElementById('envelope');
