@@ -217,3 +217,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Iniciar com música desativada
     bgMusic.volume = 0.5;
 });
+
