@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta para o Dia das Mães</title>
+   <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="index.js"></script>
+</head>
+<body>
+    <div class="envelope" id="envelope">
+        <div class="envelope-flap"></div>
+        <div class="envelope-content">
+            <div class="envelope-message">Clique para abrir</div>
+        </div>
+    </div>
+
+    <div class="card" id="card">
+        <div class="flower-decoration flower-1"></div>
+        <div class="flower-decoration flower-2"></div>
+        <div class="flower-decoration flower-3"></div>
+        <div class="flower-decoration flower-4"></div>
+        
+        <div class="card-inner">
+            <div class="card-header">
+                <h1 class="card-title">Para a melhor mãe do mundo</h1>
+            </div>
+            
+            <div class="card-content">
+                <p class="greeting">Querida Mãe,</p>
+                
+                <p>Em cada sorriso seu vejo a força que me guia. Em cada conselho, a sabedoria que me orienta. Em cada abraço, o amor que me mantém seguro.</p>
+                
+                <p>Obrigado por cada momento de paciência, por cada noite sem dormir, por cada sacrifício silencioso que você fez por mim. Sua dedicação e amor incondicional moldaram quem eu sou hoje.</p>
+                
+                <div class="special-message" id="specialMessage">
+                    <p>Nas alegrias e nas dificuldades, você sempre foi meu porto seguro. Seu amor me ensinou a ser forte, a ser gentil e a nunca desistir. Não há palavras suficientes para expressar minha gratidão e meu amor por você.</p>
+                    <p>Você é e sempre será meu maior exemplo de amor, coragem e bondade.</p>
+                </div>
+                
+                <div class="button-container">
+                    <button class="button" id="revealButton">Mensagem especial</button>
+                    <button class="button photo-button" id="photoButton">Ver foto</button>
+                </div>
+                
+                <div class="photo-container" id="photoContainer">
+                    <div class="photo-frame">
+                        <div class="photo-placeholder">
+                            <span>Sua foto com a mamãe</span>
+                            <p>(Clique para adicionar)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="signature">
+                    <p>Com todo meu amor,</p>
+                    <p class="signature-name">Seu filho(a)</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hearts" id="heartsContainer"></div>
+        <div class="petals" id="petalsContainer"></div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control" id="musicControl">
+        <button id="musicToggle" class="music-button">🎵</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
