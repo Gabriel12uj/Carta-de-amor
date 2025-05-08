@@ -11,8 +11,36 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
+    padding: 20px 10px;
+}
+
+/* Background Elements */
+.bg-bubbles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(to right, rgba(255, 182, 193, 0.2), rgba(255, 228, 225, 0.2));
+    animation: float 8s ease-in-out infinite;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    pointer-events: none;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+    100% { transform: translateY(0) rotate(0deg); }
 }
 
 /* Envelope Styles */
@@ -21,7 +49,7 @@ body {
     width: 90%;
     max-width: 550px;
     height: 360px;
-    background-color: #fadfea;
+    background: linear-gradient(145deg, #fae3ef 0%, #ffcbd9 100%);
     border-radius: 15px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
     display: flex;
@@ -33,10 +61,14 @@ body {
     transform-style: preserve-3d;
     perspective: 1000px;
     border: 2px solid #f4c1d9;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .envelope:hover {
-    transform: translateY(-5px) scale(1.02);
+    transform: translate(-50%, -55%) scale(1.02);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
@@ -46,7 +78,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #f1b6ce;
+    background: linear-gradient(145deg, #f1b6ce 0%, #ffb0c4 100%);
     clip-path: polygon(0 0, 100% 0, 50% 50%);
     transform-origin: top;
     transition: transform 0.8s ease;
@@ -69,9 +101,65 @@ body {
 
 .envelope-message {
     font-family: 'Dancing Script', cursive;
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: #e75a7c;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    text-align: center;
+    padding: 0 20px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.envelope-decoration {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.envelope-hearts {
+    position: absolute;
+    font-size: 1.5rem;
+    color: rgba(231, 90, 124, 0.3);
+    animation: float-slow 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes float-slow {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Decorative Seal */
+.envelope-seal {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(145deg, #e75a7c, #f18a9b);
+    border-radius: 50%;
+    bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(231, 90, 124, 0.4);
+    transition: all 0.3s ease;
+    z-index: 3;
+}
+
+.envelope-seal::before {
+    content: '❤';
+    color: white;
+    font-size: 1.5rem;
+}
+
+.envelope:hover .envelope-seal {
+    transform: translateY(-5px) scale(1.1);
 }
 
 /* Card Styles */
@@ -90,6 +178,8 @@ body {
     transition: all 1s ease;
     z-index: 10;
     overflow: hidden;
+    margin: 0 auto;
+    display: none;
 }
 
 .card.visible {
@@ -98,9 +188,11 @@ body {
 }
 
 .card-inner {
-    padding: 30px;
+    padding: 35px 20px;
     position: relative;
     z-index: 2;
+    overflow-y: auto;
+    max-height: 80vh;
 }
 
 .ribbon-container {
@@ -110,6 +202,8 @@ body {
     overflow: hidden;
     width: 150px;
     height: 150px;
+    z-index: 5;
+    pointer-events: none;
 }
 
 .ribbon {
@@ -126,20 +220,48 @@ body {
     letter-spacing: 1px;
     transform: rotate(45deg);
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    animation: ribbon-shine 3s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes ribbon-shine {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
 }
 
 .card-header {
     text-align: center;
     margin-bottom: 25px;
     position: relative;
+    padding-bottom: 15px;
+}
+
+.card-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #e75a7c, transparent);
 }
 
 .card-title {
     font-family: 'Dancing Script', cursive;
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     color: #e75a7c;
     margin-bottom: 15px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    letter-spacing: 1px;
+}
+
+.card-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #f18a9b;
+    margin-bottom: 10px;
 }
 
 .card-content {
@@ -155,6 +277,7 @@ body {
     margin-bottom: 20px;
     font-size: 1.2rem;
     color: #e75a7c;
+    font-family: 'Playfair Display', serif;
 }
 
 .signature {
@@ -170,7 +293,7 @@ body {
     font-weight: bold;
 }
 
-.hearts, .petals {
+.hearts, .petals, .confetti {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -181,10 +304,11 @@ body {
     z-index: 1;
 }
 
-.heart, .petal {
+.heart, .petal, .confetti-piece {
     position: absolute;
     z-index: 1;
     opacity: 0;
+    pointer-events: none;
 }
 
 .flower-decoration {
@@ -196,6 +320,7 @@ body {
     opacity: 0.15;
     z-index: 0;
     transition: all 0.3s ease;
+    pointer-events: none;
 }
 
 .card:hover .flower-decoration {
@@ -243,6 +368,14 @@ body {
     box-shadow: 0 4px 15px rgba(231, 90, 124, 0.3);
     position: relative;
     overflow: hidden;
+    font-family: 'Lora', serif;
+    text-align: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
 }
 
 .button::before {
@@ -257,8 +390,16 @@ body {
 }
 
 .button:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 7px 20px rgba(231, 90, 124, 0.4);
+}
+
+.button:active {
+    transform: translateY(-1px);
+}
+
+.button:focus {
+    outline: none;
 }
 
 .button:hover::before {
@@ -274,6 +415,15 @@ body {
     box-shadow: 0 7px 20px rgba(94, 158, 255, 0.4);
 }
 
+.memory-button {
+    background: linear-gradient(to right, #9b59b6, #8e44ad);
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+}
+
+.memory-button:hover {
+    box-shadow: 0 7px 20px rgba(155, 89, 182, 0.4);
+}
+
 .special-message {
     height: 0;
     overflow: hidden;
@@ -283,7 +433,8 @@ body {
     color: #5d5d5d;
     margin: 20px 0;
     opacity: 0;
-    padding: 0 10px;
+    padding: 0 15px;
+    position: relative;
 }
 
 .special-message.show {
@@ -294,13 +445,109 @@ body {
 
 .special-message p {
     margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.special-message::before {
+    content: '❝';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 3rem;
+    color: rgba(231, 90, 124, 0.1);
+    font-family: serif;
+}
+
+.special-message::after {
+    content: '❞';
+    position: absolute;
+    bottom: -50px;
+    right: 0;
+    font-size: 3rem;
+    color: rgba(231, 90, 124, 0.1);
+    font-family: serif;
+}
+
+.memory-container {
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
+.memory-container.show {
+    display: flex;
+}
+
+.memory-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: #e75a7c;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.memory-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.memory-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ffd1dc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    color: #5d5d5d;
+    background-color: #fff;
+    resize: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.memory-input:focus {
+    outline: none;
+    border-color: #e75a7c;
+    box-shadow: 0 0 0 2px rgba(231, 90, 124, 0.2);
+}
+
+.memory-list {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid #ffedf2;
+    -webkit-overflow-scrolling: touch;
+}
+
+.memory-item {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-style: italic;
+    color: #5d5d5d;
+    border-left: 3px solid #e75a7c;
+    font-size: 0.95rem;
 }
 
 .photo-container {
     display: none;
     justify-content: center;
     margin: 20px auto;
-    width: 80%;
+    width: 100%;
     max-width: 300px;
     transition: all 0.5s ease;
 }
@@ -321,6 +568,9 @@ body {
     overflow: hidden;
     transition: all 0.3s ease;
     cursor: pointer;
+    border-radius: 3px;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .photo-frame:hover {
@@ -337,6 +587,7 @@ body {
     height: 100%;
     color: #999;
     text-align: center;
+    padding: 10px;
 }
 
 .photo-placeholder span {
@@ -349,11 +600,58 @@ body {
     font-style: italic;
 }
 
+.photo-placeholder img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.photo-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.photo-frame::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    top: 0;
+    left: -100%;
+    transition: all 0.6s ease;
+}
+
+.photo-frame:hover::before {
+    left: 100%;
+}
+
 .music-control {
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.music-label {
+    font-size: 0.8rem;
+    color: #e75a7c;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 3px 8px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.music-control:hover .music-label {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .music-button {
@@ -366,6 +664,10 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .music-button:hover {
@@ -373,42 +675,263 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
+.music-button:focus {
+    outline: none;
+}
+
 .music-button.playing {
     background: #e75a7c;
     color: white;
+    animation: pulse-light 2s infinite;
+}
+
+@keyframes pulse-light {
+    0% { box-shadow: 0 0 0 0 rgba(231, 90, 124, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(231, 90, 124, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(231, 90, 124, 0); }
+}
+
+.slideshow-container {
+    display: none;
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.slideshow-container.show {
+    display: block;
+}
+
+.slideshow {
+    display: flex;
+    width: 100%;
+    height: 200px;
+    transition: transform 0.4s ease;
+}
+
+.slide {
+    flex: 0 0 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    color: #999;
+    font-style: italic;
+}
+
+.slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.slide-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 5px;
+    padding: 5px 0;
+}
+
+.slide-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slide-dot.active {
+    background-color: #e75a7c;
+    transform: scale(1.2);
+}
+
+/* Falling animations */
+.falling-animation {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    animation: fall 8s linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(800px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #e75a7c;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-message {
+    position: absolute;
+    margin-top: 80px;
+    font-family: 'Dancing Script', cursive;
+    color: #e75a7c;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0 20px;
 }
 
 /* Responsive Design */
 @media (max-width: 600px) {
+    body {
+        padding: 15px 5px;
+    }
+    
+    .envelope {
+        width: 95%;
+        height: 280px;
+    }
+    
+    .envelope-message {
+        font-size: 1.8rem;
+        padding: 0 15px;
+    }
+    
     .card {
         width: 95%;
-        padding: 0;
+        border-radius: 15px;
     }
     
     .card-inner {
-        padding: 20px 15px;
+        padding: 25px 15px;
     }
     
     .card-title {
-        font-size: 1.8rem;
+        font-size: 2rem;
+    }
+    
+    .card-subtitle {
+        font-size: 1rem;
     }
     
     .card-content {
         font-size: 0.95rem;
+        padding: 0 5px;
     }
     
     .button-container {
         flex-direction: column;
         align-items: center;
         gap: 10px;
+        margin: 20px 0;
     }
     
     .button {
-        width: 80%;
+        width: 100%;
+        max-width: 250px;
+        padding: 10px 20px;
+        font-size: 0.95rem;
     }
     
     .photo-container {
-        width: 90%;
+        width: 100%;
+        max-width: 250px;
     }
+    
+    .slideshow-container {
+        max-width: 250px;
+    }
+    
+    .photo-frame {
+        height: 180px;
+    }
+    
+    .ribbon {
+        font-size: 0.7rem;
+        padding: 5px 0;
+    }
+    
+    .special-message {
+        font-size: 0.95rem;
+    }
+    
+    .memory-title {
+        font-size: 1.3rem;
+    }
+    
+    .signature {
+        font-size: 1.4rem;
+    }
+    
+    .signature-name {
+        font-size: 1.6rem;
+    }
+    
+    .music-control {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .music-button {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
+
+/* Extras para evitar bugs em dispositivos móveis */
+* {
+    -webkit-touch-callout: none;
+    user-select: none;
+}
+
+input[type="file"] {
+    touch-action: manipulation;
+}
+
+/* Melhoria para o envelope aberto */
+.envelope.open {
+    transition: all 1s ease;
+}
+
+/* Fixa o bug do envelope de saída */
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg) translateZ(1px);
 }
 
