@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carta para o Dia das Mães</title>
-   <link rel="stylesheet" href="style.css">
+    <title>Carta Especial para o Dia das Mães</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <script src="index.js" defer></script>
 </head>
 <body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-message">Preparando sua carta especial...</div>
+    </div>
+
+    <div class="bg-bubbles" id="bgBubbles"></div>
+
     <div class="envelope" id="envelope">
         <div class="envelope-flap"></div>
         <div class="envelope-content">
             <div class="envelope-message">Clique para abrir</div>
         </div>
+        <div class="envelope-decoration" id="envelopeDecoration"></div>
+        <div class="envelope-seal"></div>
     </div>
 
     <div class="card" id="card">
@@ -24,9 +33,14 @@
         <div class="flower-decoration flower-3"></div>
         <div class="flower-decoration flower-4"></div>
         
+        <div class="ribbon-container">
+            <div class="ribbon">Feliz Dia das Mães</div>
+        </div>
+        
         <div class="card-inner">
             <div class="card-header">
                 <h1 class="card-title">Para a melhor mãe do mundo</h1>
+                <h2 class="card-subtitle">Um dia especial para uma pessoa extraordinária</h2>
             </div>
             
             <div class="card-content">
@@ -38,20 +52,44 @@
                 
                 <div class="special-message" id="specialMessage">
                     <p>Nas alegrias e nas dificuldades, você sempre foi meu porto seguro. Seu amor me ensinou a ser forte, a ser gentil e a nunca desistir. Não há palavras suficientes para expressar minha gratidão e meu amor por você.</p>
-                    <p>Você é e sempre será meu maior exemplo de amor, coragem e bondade.</p>
+                    <p>Você é e sempre será meu maior exemplo de amor, coragem e bondade. Em cada conquista minha, há um pouco de você.</p>
+                    <p>Obrigado por ser exatamente quem você é – a mãe mais incrível que eu poderia desejar.</p>
                 </div>
                 
                 <div class="button-container">
                     <button class="button" id="revealButton">Mensagem especial</button>
                     <button class="button photo-button" id="photoButton">Ver foto</button>
+                    <button class="button memory-button" id="memoryButton">Recordações</button>
                 </div>
                 
                 <div class="photo-container" id="photoContainer">
                     <div class="photo-frame">
                         <div class="photo-placeholder">
-                            <span>Minha foto com a minha mae</span>
+                            <div class="photo-icon">📷</div>
+                            <span>Nós dois juntos</span>
                             <p>(Clique para adicionar)</p>
                         </div>
+                    </div>
+                </div>
+                
+                <div class="slideshow-container" id="slideshowContainer">
+                    <div class="slideshow" id="slideshow">
+                        <div class="slide">
+                            <p>Adicione fotos para ver aqui</p>
+                        </div>
+                    </div>
+                    <div class="slide-controls" id="slideControls"></div>
+                </div>
+                
+                <div class="memory-container" id="memoryContainer">
+                    <h3 class="memory-title">Minhas Recordações com Você</h3>
+                    <form class="memory-form" id="memoryForm">
+                        <textarea class="memory-input" id="memoryInput" rows="3" placeholder="Escreva uma lembrança especial com sua mãe..."></textarea>
+                        <button type="submit" class="button">Adicionar</button>
+                    </form>
+                    <div class="memory-list" id="memoryList">
+                        <div class="memory-item">Seu primeiro abraço quando eu era bebê...</div>
+                        <div class="memory-item">Quando você me ajudou com meu dever de casa...</div>
                     </div>
                 </div>
                 
@@ -64,17 +102,18 @@
         
         <div class="hearts" id="heartsContainer"></div>
         <div class="petals" id="petalsContainer"></div>
+        <div class="confetti" id="confettiContainer"></div>
     </div>
 
     <audio id="bgMusic" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
-
+    
     <div class="music-control" id="musicControl">
+        <div class="music-label">Música</div>
         <button id="musicToggle" class="music-button">🎵</button>
     </div>
 
-    <script src="script.js"></script>
 </body>
 </html>
 
